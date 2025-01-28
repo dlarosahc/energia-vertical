@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <title>Paquetes</title>
+</head>
+<body>
+    <div id="side-bar" class="fixed"> </div>
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
+    <div class="pt-12 md:ml-64 gap-4 h-full flex flex-col max-w-7xl mx-auto justify-around items-center px-6">
+        <div id="payment" class="transition ease-in-out  hidden p-6 overflow-auto  text-white shadow-lg bg-purple-700 fixed top-14 right-30 left-30 bottom-10 rounded-lg  justify-around items-center flex-col gap-2 w-11/12  md:w-2/4">
+            <div class="container mx-auto justify-center flex flex-col">
+                <h2 class="text-2xl font-bold mb-4">Aquí iría el nombre del Paquete</h2>
+              
+                <div class=" flex flex-col  overflow-auto md:grid md:grid-cols-2 gap-4">
+                  <div class="flex flex-col " >
+                    <label class="block text-sm font-medium text-white">
+                      Añadir metodo de pago
+                    </label>
+                    
+                    <select id="select-method" class="mt-1 block w-full pl-3 pr-10 py-2 text-black border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                      <option value="none" selected disabled class="text-black">Elige una opción</option>
+                      <option value="zelle" class="text-black">Zelle</option>
+                      <option value="efectivo" class="text-black">Efectivo</option>
+                      <option value="pagomovil" class="text-black">Pago Móvil</option>
+                    </select>
+
+                <div class="max-h-96 flex flex-col p-4 gap-4  overflow-auto w-11/12">   
+                    <form id="ZellePay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16   p-4">
+                      <div class="flex justify-between items-center">  
+                      <h3 class="text-lg  font-bold  ">Zelle</h3>
+                      
+                     </div>
+                        <div class="space-y-4">
+                          <div>
+                            <label for="sentFromEmail" class="block text-sm">
+                              Email de donde se envió el pago
+                            </label>
+                            <input type="email" required id="sentFromEmail" name="sentFromEmail" class="pay-ref text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el email de envío">
+                          </div>
+                      
+                          <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" required name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en dolares</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                      <form id="PagoMovilPay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16  p-4">
+                        <div class="flex justify-between items-center">  
+                          <h3 class="text-lg  font-bold  ">Pago Móvil</h3>
+                         </div>
+                      
+                        <div class="space-y-4">
+                          <div>
+                            <label for="sentFromEmail" class="block text-sm">
+                              Numero de Referencia*
+                            </label>
+                            <input  id="amount-input" required name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Referencia de Pago">
+                            <p class="text-xs text-white">Últimos 4 digitos de la referencia</p>
+                        </div>
+                      
+                          <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" required name="amount"  max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en Bolívares, los decimales deben estar con un punto (.)</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                      <form id="CashPay" class="hidden transition-shadow border border-gray-200 rounded-md ease-in flex-col text-white top-16  p-4">
+                        <div class="flex justify-between items-center">  
+                          <h3 class="text-lg  font-bold  ">Efectivo</h3>
+                         </div>
+                      
+                        <div class="space-y-4">
+                         <div>
+                            <label for="amount-input" class="block text-sm">
+                              Monto *
+                            </label>
+                            <input  id="amount-input" required name="amount" required step="0.01" max="200" class="amount-pay text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el monto">
+                            <p class="text-xs text-white">El monto debe estar en dolares</p>
+                          </div>
+                        </div>
+                      
+                        <button class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                          Realizar Pago
+                        </button>
+                     
+                      </form>
+                </div>     
+                    </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">Métodos de pago</h3>
+                    <div class="flex  items-center mb-4  ">
+                      <div class="border-solid border-r-2 px-2">
+                        <p>Total Bs.</p>
+                        <p class="text-md font-bold"></p>
+                      </div>
+
+                      <div>
+                        <p class="px-2">Fecha</p>
+                        
+                        <input id="buy-date" required type="date" class="text-white focus:border-transparent bg-transparent  px-2">
+                      </div>
+                      
+                      
+                    </div>
+              
+                    <div class="border border-gray-200 rounded-md p-4">
+                      <h4 class="text-lg font-bold mb-2">Zelle</h4>
+                      <p>Carolina Ventura</p>
+                      <p>caroventura60@gmail.com</p>
+                      
+                    </div>
+              
+                    <div class="border border-gray-200 rounded-md p-4 mt-4">
+                      <h4 class="text-lg font-bold mb-2">Banesco</h4>
+                      <p>Pago móvil</p>
+                      <p>0414-2701708</p>
+                      <p>V-12.618.811</p>
+                     
+                    </div>
+              
+                    <div class="flex justify-end mt-4 font-bold py-2 px-4 rounded">
+                      <button id="cancel-pay-btn" class="bg-red-700 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">Cancelar</button>
+                    
+                    
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+           </div>     
+         <form id="form" class="hidden  flex-col w-full md:w-2/4  gap-4  p-4 rounded-lg text-md shadow-lg">
+          
+            <div class="flex flex-col gap-2">
+            <label for="name-input" class="font-bold">Nombre del paquete</label>
+            <input type="text" id="name-input" name="name-input"  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ">
+            <p class="hidden text-xs">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>     
+            
+            <div class="flex flex-col gap-2">
+                <label for="description-input" class="font-bold">Descripcion del Paquete</label>
+                <input  id="description-input" name="description-input" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1">
+                <p class=" text-xs hidden">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="price-input" class="font-bold">Costo del paquete $</label>
+                <input type="text" id="price-input" name="price-input"  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1">
+                <p class="text-xs hidden">Numero Telefonico Venezolano</p>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <label for="quantity-input" class="font-bold">Cantidad de clases del paquete</label>
+                <input  id="quantity-input" name="quantity-input" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1">
+                <p class="text-xs hidden">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div> 
+            <button  id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-purple-700 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white">Crear Paquete</button>
+         </form>
+
+         <div id="availables-packages">
+          <h2 id="title-admin" class=" flex  justify-center text-center text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+            PAQUETES DISPONIBLES
+            </h2>
+            <ul id="packages-list" class="flex  flex-col justify-center  md:grid md:grid-cols-3 px-6 py-6 gap-4">
+             
+            </ul>
+
+            
+           
+         </div>
+
+    </div>   
+
+    <script src="../../components/sidebar.js"></script>
+    <script type="module" src="/components/notification.js"></script>   
+    <script type="module" src="index.js"></script> 
+</body>
+</html>

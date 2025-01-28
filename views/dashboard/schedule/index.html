@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    <title>Calendario</title>
+</head>
+<body>
+    <div id="side-bar"> </div>
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
+    <div class="p-4 md:ml-64  flex flex-col max-w-7xl mx-auto justify-center  gap-4 items-center px-6">
+        <div id="schedule-attendance" class="transition h-3/4  hidden ease-in-out duration-300 bg-violet-400  px-4 py-4 text-black shadow-xl  fixed top-32   right-30 left-30 bottom-10 rounded-lg md:w-2/4 lg:w-2/4  justify-around items-center flex-col gap-2 w-11/12">
+            <div class="flex flex-col justify-between items-center">  
+            <h3 id="form-title" class="text-lg  font-bold  ">Pole Dance</h3>
+            <p>9:00am.</p>
+            <input  type="date" id="" name="input-schedule-date" class="pay-ref text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el email de envío">
+           </div>
+              <div id="" class="h-96 bg-white rounded-md w-full p-4 space-y-4 overflow-auto">
+                <table id="payments-table" class=" overflow-x-scroll w-full  text-sm text-center rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="text-center px-6 py-3">
+                                Eliminar
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Alumno
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Asistencia
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Cargar
+                            </th>
+                          </tr> 
+                        </thead>
+                        <tbody id="attendance-list">
+                 
+                    
+            
+                    
+                    </tbody>
+                </table>
+              
+            </div>  
+            <div>
+                <button id="close-schedule-attendance" class="mt-4 bg-red-700  hover:bg-white hover:text-red-700 transition ease-in-out  duration-300 text-white font-bold py-2 px-4 rounded">
+                  Cancelar
+                </button>
+              </div>  
+            </div>  
+        <form id="schedule-form" class="transition hidden ease-in-out bg-violet-400  px-4 py-4 text-black shadow-xl  fixed top-14 right-30 left-30 bottom-10 rounded-lg  justify-around items-center flex-col gap-2 w-11/12  md:w-2/4">
+            <div class="flex flex-col justify-between items-center">  
+            <h3 id="form-title" class="text-lg  font-bold  ">Pole Dance</h3>
+            <p>9:00am.</p>
+            <input  type="date" id="input-schedule-date" name="input-schedule-date" class="pay-ref text-black mt-1 p-2 w-full rounded-md border-gray-700 focus:border-indigo-500" placeholder="Ingrese el email de envío">
+           </div>
+           <div  class="flex w-full px-4 py-3 rounded-md border-2 bg-white border-purple-500/50 overflow-hidden max-w-md mx-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="16px"
+              class="fill-gray-600 mr-3 rotate-90">
+              <path
+                d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z">
+              </path>
+            </svg>
+            <input id="search-input" type="text"  placeholder="Buscar por Nombre" class="w-full outline-none bg-transparent text-gray-600 text-sm" />
+        </div>
+              <div id="students-list" class="h-96 bg-white rounded-md w-full p-4  overflow-auto">
+                <ul id="schedule-list" class="flex w-full min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700"></ul>
+                <ul id="filter-schedule-list" class="hidden w-full min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700"></ul>
+              
+            </div>  
+            <div>
+                <button class="mt-4  bg-red-700  hover:bg-white hover:text-red-700 transition ease-in-out  duration-300 text-white font-bold py-2 px-4 rounded">
+                  Cancelar
+                </button>
+              </div>  
+        </form>  
+        <h2 id="day-title" class="hidden text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+            CREAR NUEVO HORARIO
+            </h2>
+         <form id="form" class="hidden flex-col w-full md:w-2/4  gap-4 p-4 rounded-lg text-md shadow-lg">
+           
+            <div class="flex flex-col gap-2">
+            <label for="dayOfWeek" class="font-bold">Dia de la semana</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1" name="dayOfWeek" id="select-day">
+                <option selected disabled value=""></option>
+                <option value="monday">Lunes</option>
+                <option value="tuesday">Martes</option>
+                <option value="wednesday">Miercoles</option>
+                <option value="thursday">Jueves</option>
+                <option value="friday">Viernes</option>
+                <option value="saturday">Sabado</option>
+            </select>
+            </div>     
+            
+            <div class="flex flex-col gap-2">
+            <label for="time" class="font-bold">Hora</label>
+            <select  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1" name="time" id="select-time">
+                <option selected disabled value=""></option>
+                <option value="08:00 AM">08:00 AM</option>
+                <option value="09:30 AM">09:00 AM</option>
+                <option value="10:00a AM">10:00 AM</option>
+                <option value="10:30 AM">10:30 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM.</option>
+                <option value="05:00 PM">05:00 PM</option>
+                <option value="06:30 PM">06:30 PM</option>
+                <option value="07:00 PM">07:00 PM</option>
+                
+            </select>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="discipline" class="font-bold">Disciplina</label>
+                <select  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1" name="discipline" id="select-discipline">
+                    <option selected disabled value=""></option>
+                    <option value="Pole Fitness">Pole Fitness</option>
+                    <option value="Pole Sport">Pole Sport</option>
+                    <option value="Pole Giratorio">Pole Giratorio</option>
+                    <option value="Pole Coreográfico">Pole Coreográfico</option>
+                    <option value="Pole Exotic">Pole Exotic</option>
+                    <option value="Bailoterapia">Bailoterapia</option>
+                    <option value="Lyra Hoop">Flexibilidad</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label for="discipline" class="font-bold">Profesor</label>
+                <select  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1" name="coach" id="select-coach">
+                    <option selected disabled value=""></option>
+                    <option value="Guillermo Tovar">Guillermo Tovar</option>
+                    <option value="Evytza Chacón">Evytza Chacón</option>
+                    <option value="Luis Felipe Moy">Luis Felipe Moy</option>
+                    <option value="José Andrés Sulbaran">José Andrés Sulbaran</option>
+                    <option value="Saray Guerra">Saray Guerra</option>
+                    <option value="Antonella Pacheco">Antonella Pacheco</option>
+                    <option value="Laura Cañizales">Laura Cañizales</option>
+                    <option value="Johalcys Méndez">Johalcys Méndez</option>
+                </select>
+            </div>
+            
+            
+            <button  id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-purple-700 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white">Crear Horario</button>
+         </form>
+
+         <div class="flex w-full px-4 py-3 rounded-md border-2 border-violet-400/50 overflow-hidden max-w-md mx-auto">
+            <input  id="input-date" type="date" placeholder="" class="w-full outline-none bg-transparent text-gray-600 text-sm" />
+        </div>
+
+        <h2 id="day-title" class="text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900 ">
+            CLASES DEL DÍA
+            </h2>
+
+        <section id="schedule-section" class="w-full pb-4 rounded-lg shadow-lg md:w-3/4 lg:w-3/4  flex flex-col justify-between overflow-auto bg-slate-200  antialiased"></section>
+
+    
+
+
+
+
+    <script src="../../components/sidebar.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="/components/notification.js"></script>
+</body>
+</html>
