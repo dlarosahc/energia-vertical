@@ -8,20 +8,103 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="manifest" href="/images/site.webmanifest">
     <title>Resumen</title>
 </head>
 <body>
     <div id="side-bar" class="fixed"> </div> 
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
     
-    <div id="profile" class=" pt-12 md:ml-64 h-screen gap-4 flex flex-col max-w-7xl mx-auto  items-center px-6">
-        <h2 id="day-title" class="text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+    <div id="profile" class=" pt-12 md:ml-64 h-full gap-4 flex flex-col max-w-7xl mx-auto  items-center px-6">
+        <h2 id="user-title" class="hidden text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
             Bienvenid@ a tu cuenta!
+        </h2>
+        <h2 id="admin-title" class="hidden text-2xl lg:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+            Bienvenid@ Administrador!
+        </h2>
+        <form id="form" class="flex  flex-col w-full md:w-2/4  gap-4  p-4 rounded-lg text-md shadow-lg">
+          <div>
+            <h4 id="admin-title" class="text-xl flex justify-center items-center lg:text-xl font-extrabold leading-tight tracking-tight text-gray-900">
+                Agregar Instructor
+            </h4>
+          </div>
+            <div class="flex flex-col gap-2">
+            <label for="name-input" class="font-bold">Nombre del Instructor</label>
+            <input type="text" id="name-input" name="name-input"  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1 ">
+            <p class="hidden text-xs">Nombre y Apellido deben estar con la primera letra en mayuscula</p>
+            </div>     
+            
+           
+            <button  id="form-btn" class=" disabled:opacity-50 disabled:cursor-not-allowed py-2 px-4 bg-purple-700 rounded-lg font-bold text-white hover:border-transparent hover:text-teal-500 hover:bg-white">Agregar</button>
+         </form>
+        
+         <div id="coaches-div" class="h-96 overflow-auto flex flex-col items-center justify-center">
+            <h2 id="" class=" text-xl lg:text-2xl font-extrabold leading-tight tracking-tight text-gray-900">
+                Instructores Activos
             </h2>
+            <table id="coaches-table" class=" overflow-x-auto w-full  text-sm text-center rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="text-center px-6 py-3">
+                            Instructores
+                        </th>
+                        <th scope="col" class="text-center px-6 py-3">
+                            Agregar Clase
+                        </th>
+                      
+                    </tr>
+                </thead>
+                <tbody id="coaches-content">
+        
+                
+                </tbody>
+                <tbody id="filter-payments-content" class="hidden">
+        
+                
+                </tbody>
+                
+            </table>
+        </div>
+
+        <div id="classes-div" class="h-96 overflow-auto flex flex-col ">
+            <h2 id="" class=" text-xl lg:text-2xl font-extrabold leading-tight tracking-tight text-gray-900">
+                Registro de clases para Profesores
+            </h2>
+            <table id="classes-table" class=" overflow-x-auto w-full  text-sm text-center rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                       
+                        <th scope="col" class="px-6 py-3">
+                            Fecha
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Instructor
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Pagada
+                        </th>
+                       
+                       
+                       
+                    </tr>
+                </thead>
+                <tbody id="classes-content">
+        
+                
+                </tbody>
+                <tbody id="filter-payments-content" class="hidden">
+        
+                
+                </tbody>
+                
+            </table>
+        </div>
+
    </div>
 
 
    <script src="../components/sidebar.js"></script>
   <script type="module" src="index.js"></script>
+  <script type="module" src="/components/notification.js"></script>
 </body>
 </html>

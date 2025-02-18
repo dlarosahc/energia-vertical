@@ -16,6 +16,8 @@ const profileRouter = require('./controllers/profile');
 const scheduleRouter = require('./controllers/schedule');
 const classRouter = require('./controllers/class');
 const logoutRouter = require('./controllers/logout');
+const coachesRouter = require('./controllers/coaches');
+const billsRouter = require('./controllers/bills');
 
 
 (async() => {
@@ -67,6 +69,8 @@ app.use('/api/profile', userExtractor ,profileRouter);
 app.use('/api/schedule', userExtractor ,scheduleRouter);
 app.use('/api/class', userExtractor ,classRouter);
 app.use('/api/logout', userExtractor ,logoutRouter);
+app.use('/api/coaches', userExtractor ,coachesRouter);
+app.use('/api/bills', userExtractor, billsRouter);
 
 
 module.exports = app;
