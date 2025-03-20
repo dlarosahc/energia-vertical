@@ -131,7 +131,7 @@ packagesList.addEventListener('click', async e => {
                 
 
                 `;
-              const response = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20Monitor',)
+              const response = await fetch('https://venecodollar.vercel.app/api/v2/dollar/entity?name=D%C3%B3lar%20BCV',)
               if (response){
                 const dollar = await response.json()
                 const dollarPrice = dollar.Data.info.dollar;
