@@ -3,38 +3,32 @@ const Class = require('../models/class');
 const Schedule = require('../models/schedule');
 const User = require('../models/users');
 
-// classRouter.get('/', async (request, response) => {
+classRouter.get('/', async (request, response) => {
 
-//   try {
-//       Find all packages using Package.find()
+  try {
+      //Find all packages using Package.find()
       
      
      
-//       const classes = await Class.find().populate({
-//         path: 'payments',
-//         populate: {path: 'package'}
-//       }).populate({
-//         path: 'payments',
-//         populate: {path: 'user'}
-//       });
+      const classes = await Class.find().populate('user');
       
     
   
-//       Check if any packages were found
-//       if (!classes.length) {
-//         return response.status(204).json({ message: 'No se encontraron clases' });
-//       }
+      //Check if any packages were found
+      if (!classes.length) {
+        return response.status(204).json({ message: 'No se encontraron clases' });
+      }
   
-//       Send the array of packages in the response
-//       return response.status(200).json(classes);
+      //Send the array of packages in the response
+      return response.status(200).json(classes);
       
-//     } catch (error) {
-//       Handle errors gracefully
-//       console.error(error);
-//       return response.status(500).json({ message: 'Error al recuperar clases' });
-//     }
+    } catch (error) {
+      //Handle errors gracefully
+      console.error(error);
+      return response.status(500).json({ message: 'Error al recuperar clases' });
+    }
  
-// });
+});
 
 classRouter.get('/two', async (request, response) => {
 
